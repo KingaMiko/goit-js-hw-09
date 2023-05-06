@@ -8,6 +8,7 @@ let intrevalId;
 
 const startColorChange = () => {
   startBtn.disabled = true;
+  //In this task, after clicking the "start" button, the color changes immediately and then in the 1000 ms interval. Thanks to this we will avoid that awkward moment when after clicking "start nothing happens.
   bodyBg.style.backgroundColor = getRandomHexColor();
   intrevalId = setInterval(() => {
     bodyBg.style.backgroundColor = getRandomHexColor();
