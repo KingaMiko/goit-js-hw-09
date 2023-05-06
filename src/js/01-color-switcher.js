@@ -8,6 +8,7 @@ let intrevalId;
 
 const startColorChange = () => {
   startBtn.disabled = true;
+  bodyBg.style.backgroundColor = getRandomHexColor();
   intrevalId = setInterval(() => {
     bodyBg.style.backgroundColor = getRandomHexColor();
   }, 1000);
