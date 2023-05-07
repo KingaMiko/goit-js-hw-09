@@ -30,13 +30,6 @@ const startCountdown = () => {
   startBtn.disabled = true;
   stopBtn.disabled = false;
 
-  const timeUnits = {
-    second: 1000,
-    minute: 1000 * 60,
-    hour: 1000 * 60 * 60,
-    day: 1000 * 60 * 60 * 24,
-  };
-
   const updateCountdown = () => {
     const timeDifference = selectedTimestamp - Date.now();
     if (timeDifference <= 0) {
@@ -50,35 +43,28 @@ const startCountdown = () => {
     };
 
     const convertMs = ms => {
-      const remainingDays = Math.floor(ms / timeUnits.day);
-      const remainingHours = Math.floor((ms % timeUnits.day) / timeUnits.hour);
-      const remainingMinutes = Math.floor(
-        ((ms % timeUnits.day) % timeUnits.hour) / timeUnits.minute
-      );
-      const remainingSeconds = Math.floor(
-        (((ms % timeUnits.day) % timeUnits.hour) % timeUnits.minute) /
-          timeUnits.second
-      );
+      const second = 1000;
+      const minute = second * 60;
+      const hour = minute * 60;
+      const day = hour * 24;
+      // Remaining days
+      const days = Math.floor(ms / day);
+      // Remaining hours
+      const hours = Math.floor((ms % day) / hour);
+      // Remaining minutes
+      const minutes = Math.floor(((ms % day) % hour) / minute);
+      // Remaining seconds
+      const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
-      return {
-        remainingDays,
-        remainingHours,
-        remainingMinutes,
-        remainingSeconds,
-      };
+      return { days, hours, minutes, seconds };
     };
 
-    const {
-      remainingDays,
-      remainingHours,
-      remainingMinutes,
-      remainingSeconds,
-    } = convertMs(timeDifference);
+    const { days, hours, minutes, seconds } = convertMs(timeDifference);
 
-    countdownElements.days.textContent = addLeadingZero(remainingDays);
-    countdownElements.hours.textContent = addLeadingZero(remainingHours);
-    countdownElements.minutes.textContent = addLeadingZero(remainingMinutes);
-    countdownElements.seconds.textContent = addLeadingZero(remainingSeconds);
+    countdownElements.days.textContent = addLeadingZero(days);
+    countdownElements.hours.textContent = addLeadingZero(hours);
+    countdownElements.minutes.textContent = addLeadingZero(minutes);
+    countdownElements.seconds.textContent = addLeadingZero(seconds);
   };
 
   updateCountdown();
@@ -120,7 +106,7 @@ const options = {
 
 flatpickr('#datetime-picker', options);
 
-// obiekt Date
+//Obiekt Date
 // 'use strict';
 // import flatpickr from 'flatpickr';
 // import 'flatpickr/dist/flatpickr.min.css';
@@ -152,13 +138,6 @@ flatpickr('#datetime-picker', options);
 //   startBtn.disabled = true;
 //   stopBtn.disabled = false;
 
-//   const timeUnits = {
-//     second: 1000,
-//     minute: 1000 * 60,
-//     hour: 1000 * 60 * 60,
-//     day: 1000 * 60 * 60 * 24,
-//   };
-
 //   const updateCountdown = () => {
 //     const timeDifference = selectedDate.getTime() - Date.now();
 //     if (timeDifference <= 0) {
@@ -172,41 +151,29 @@ flatpickr('#datetime-picker', options);
 //     };
 
 //     const convertMs = ms => {
-//       const remainingDays = Math.floor(ms / timeUnits.day);
-//       const remainingHours = Math.floor((ms % timeUnits.day) / timeUnits.hour);
-//       const remainingMinutes = Math.floor(
-//         ((ms % timeUnits.day) % timeUnits.hour) / timeUnits.minute
-//       );
-//       const remainingSeconds = Math.floor(
-//         (((ms % timeUnits.day) % timeUnits.hour) % timeUnits.minute) /
-//           timeUnits.second
-//       );
+//       const second = 1000;
+//       const minute = second * 60;
+//       const hour = minute * 60;
+//       const day = hour * 24;
+//       // Remaining days
+//       const days = Math.floor(ms / day);
+//       // Remaining hours
+//       const hours = Math.floor((ms % day) / hour);
+//       // Remaining minutes
+//       const minutes = Math.floor(((ms % day) % hour) / minute);
+//       // Remaining seconds
+//       const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
-//       return {
-//         remainingDays,
-//         remainingHours,
-//         remainingMinutes,
-//         remainingSeconds,
-//       };
+//       return { days, hours, minutes, seconds };
 //     };
 
-//     const {
-//       remainingDays,
-//       remainingHours,
-//       remainingMinutes,
-//       remainingSeconds,
-//     } = convertMs(timeDifference);
+//     const { days, hours, minutes, seconds } = convertMs(timeDifference);
 
-//     countdownElements.days.textContent = addLeadingZero(remainingDays);
-//     countdownElements.hours.textContent = addLeadingZero(remainingHours);
-//     countdownElements.minutes.textContent = addLeadingZero(remainingMinutes);
-//     countdownElements.seconds.textContent = addLeadingZero(remainingSeconds);
+//     countdownElements.days.textContent = addLeadingZero(days);
+//     countdownElements.hours.textContent = addLeadingZero(hours);
+//     countdownElements.minutes.textContent = addLeadingZero(minutes);
+//     countdownElements.seconds.textContent = addLeadingZero(seconds);
 //   };
-
-//   const days = document.querySelector('[data-days]');
-//   const hours = document.querySelector('[data-hours]');
-//   const minutes = document.querySelector('[data-minutes]');
-//   const seconds = document.querySelector('[data-seconds]');
 
 //   updateCountdown();
 //   intervalId = setInterval(updateCountdown, 1000);
@@ -219,9 +186,16 @@ flatpickr('#datetime-picker', options);
 // };
 
 // const resetCountdown = () => {
+//   if (intervalId) {
+//     clearInterval(intervalId);
+//     intervalId = null;
+//   }
 //   Object.values(countdownElements).forEach(element => {
 //     element.textContent = '00';
 //   });
+//   startBtn.disabled = false;
+//   stopBtn.disabled = false;
+//   datePicker._flatpickr.setDate(new Date());
 // };
 
 // startBtn.addEventListener('click', startCountdown);
