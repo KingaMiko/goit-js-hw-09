@@ -12,9 +12,9 @@ function handleSubmit(event) {
   const stepInput = document.querySelector('[name="step"]');
   const amountInput = document.querySelector('[name="amount"]');
 
-  const delay = delayInput.value;
-  const step = stepInput.value;
-  const amount = amountInput.value;
+  const delay = parseInt(delayInput.value);
+  const step = parseInt(stepInput.value);
+  const amount = parseInt(amountInput.value);
 
   createPromises(delay, step, amount)
     .then(results => {
