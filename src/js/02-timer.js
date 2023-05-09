@@ -146,6 +146,7 @@ flatpickr('#datetime-picker', options);
 //     if (timeDifference <= 0) {
 //       clearInterval(intervalId);
 //       startBtn.disabled = false;
+//       Report.success('Success', 'Countdown completed', 'Okay');
 //       return;
 //     }
 
