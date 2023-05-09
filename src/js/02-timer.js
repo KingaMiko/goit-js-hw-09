@@ -3,6 +3,7 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 require('flatpickr/dist/themes/dark.css');
+import { Report } from 'notiflix/build/notiflix-report-aio';
 import Notiflix from 'notiflix';
 
 const datePicker = document.querySelector('#datetime-picker');
@@ -35,6 +36,8 @@ const startCountdown = () => {
     if (timeDifference <= 0) {
       clearInterval(intervalId);
       startBtn.disabled = false;
+
+      Report.success('Success', 'Countdown completed', 'Okay');
       return;
     }
 
